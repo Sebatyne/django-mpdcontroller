@@ -65,6 +65,8 @@
       event.preventDefault();
     }
 
+    window.setInterval(updateStatus, 5000);
+
     window.onload = function window_onload() {
       updateStatus();
       a_tag_list = document.querySelectorAll('a');
