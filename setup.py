@@ -17,7 +17,7 @@ setup(
     description = ("A web interface to command the music player daemon service (mpd)."),
     license = "BSD",
     keywords = "django interface mpd client",
-    url = "https://github.com/Sebatyne/django-feed-manager",
+    url = "https://github.com/Sebatyne/django-mpdcontroller",
     #long_description = read('README.md'),
     classifiers = [
         "Environment :: Web Environment",
