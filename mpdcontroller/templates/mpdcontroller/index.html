@@ -1,0 +1,78 @@
+<html>
+<head>
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <style>
+      body {
+        background-color: black;
+        color: white;
+      }
+      iframe {
+        width: 100%;
+        height: 40px;
+        border: none;
+      }
+      tr > td:nth-child(2) {
+        font-weight: bold;
+      }
+    </style>
+</head>
+<body>
+  <table>
+    <tr>
+      <td>Artist :</td>
+      <td id="artist-value"></td>
+    </tr>
+    <tr>
+      <td>Song : </td>
+      <td id="song-value"></td>
+    </tr>
+  </table>
+  <p>
+    <a href="{% url 'mpd_controller' %}prev">Prev</a>
+    <a href="{% url 'mpd_controller' %}toggle">Toggle</a>
+    <a href="{% url 'mpd_controller' %}next">Next</a>
+  </p>
+  <iframe src="{{ mpd_http_output_url }}"></iframe>
+  <script>
+    function updateStatus() {
+      window.fetch('/mpd/status/', {credentials: 'same-origin'})
+      .then(function(response) {
+        response.json()
+          .then(function(data) {
+            document.querySelector('#artist-value').textContent = data['artist'];
+            document.querySelector('#song-value').textContent = data['song'];
+          });
+        })
+      .catch(function(response) {
+        console.log(response);
+      })
+    }
+
+    function makeCallAsynchronous(event) {
+      var url = event.target.href;
+      window.fetch(url, {credentials: 'same-origin'})
+      .then(function(response) {
+        response.json()
+          .then(function(data) {
+            console.log(data);
+            updateStatus();
+          });
+        })
+      .catch(function(response) {
+        console.log(response);
+      })
+
+      event.preventDefault();
+    }
+
+    window.onload = function window_onload() {
+      updateStatus();
+      a_tag_list = document.querySelectorAll('a');
+      for (var i=0; i<a_tag_list.length; i++) {
+        console.log(a_tag_list[i]);
+        a_tag_list[i].addEventListener('click', makeCallAsynchronous);
+      }
+    }
+  </script>
+</body>
+</html>
