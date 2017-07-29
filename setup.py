@@ -10,7 +10,7 @@ def read(fname):
 
 setup(
     name = "django-mpdcontroller",
-    version = "0.1.1",
+    version = "0.1.2",
     packages=find_packages(),
     author = "Nicolas Wavrant",
     author_email = "nicolas.wavrant@gmail.com",
